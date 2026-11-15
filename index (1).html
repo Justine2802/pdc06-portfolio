@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Justine Esguerra PDC06 Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600&family=Reenie+Beanie&display=swap" rel="stylesheet">
+<style>
+/* Layout: "Softly" digital-living-room style. Mobile-first single column, floating pill nav,
+   blurred pastel blobs, grain overlay, rounded paper-like containers. Single light theme by choice. */
+:root{
+  --bg:#FDFCF8;
+  --sage:#E8EFE8;
+  --lavender:#EFEDF4;
+  --coral:#FFB7B2;
+  --ink:#292524;
+  --muted:#78716C;
+  --stone-50:#FAFAF9; --stone-100:#F5F5F4; --stone-200:#E7E5E4; --stone-400:#A8A29E; --stone-500:#78716C; --stone-800:#292524;
+  --rose-blob:#FFE4E1; --lav-blob:#E6E6FA;
+  --good:#5E8B66; --good-bg:#E8EFE8;
+  --bad:#B4554E; --bad-bg:#FFE4E1;
+  --warn:#9A7240; --warn-bg:#FBF0E1;
+  --shadow:0 4px 20px -2px rgba(0,0,0,.05);
+  --f-sans:"Outfit", "Segoe UI", system-ui, sans-serif;
+  --f-hand:"Reenie Beanie", "Comic Sans MS", cursive;
+  color-scheme: light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 var(--f-sans);font-weight:400;overflow-x:hidden}
+a{color:var(--ink)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--coral);outline-offset:3px;border-radius:999px}
+h1,h2,h3{font-family:var(--f-sans);font-weight:500;letter-spacing:-.025em;text-wrap:balance;margin:0;line-height:1.08}
+h1{font-size:clamp(3rem,10vw,5.6rem)}
+h2{font-size:clamp(2.4rem,6vw,3.6rem)}
+h3{font-size:1.35rem;letter-spacing:-.01em;line-height:1.25}
+p{margin:0}
+.hand{font-family:var(--f-hand);font-weight:400;color:var(--coral);letter-spacing:0;font-size:1.15em;line-height:.8}
+code{font-family:ui-monospace,Consolas,monospace;font-size:.85em;background:var(--stone-100);padding:1px 6px;border-radius:6px}
+
+/* grain */
+.grain{position:fixed;inset:0;z-index:50;pointer-events:none;opacity:.35;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* blobs */
+.blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.6;z-index:-1;animation:float 6s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(-10px)}50%{transform:translateY(10px)}}
+
+/* nav */
+.nav{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:40;width:calc(100% - 32px);max-width:920px;
+  background:rgba(255,255,255,.7);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
+  border:1px solid var(--stone-200);border-radius:999px;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:14px;padding:8px 8px 8px 14px}
+.logo{width:28px;height:28px;border-radius:50%;background:var(--coral);display:grid;place-items:center;flex:none}
+.logo::after{content:"";width:8px;height:8px;border-radius:50%;background:#fff}
+.nav .links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1}
+.nav .links::-webkit-scrollbar{display:none}
+.nav .links a{font-size:14px;font-weight:500;text-decoration:none;color:var(--muted);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.nav .links a:hover,.nav .links a.active{color:var(--ink);background:var(--stone-100)}
+.pill{display:inline-flex;align-items:center;gap:8px;border-radius:999px;padding:10px 20px;font:500 15px var(--f-sans);text-decoration:none;white-space:nowrap;transition:transform .3s ease, box-shadow .3s ease}
+.pill.dark{background:var(--ink);color:#fff;padding:8px 16px;font-size:14px}
+.pill.coral{background:var(--coral);color:var(--ink);box-shadow:0 8px 24px -6px rgba(255,183,178,.8)}
+.pill.white{background:#fff;color:var(--ink);border:1px solid var(--stone-200)}
+.pill:hover{transform:translateY(-2px)}
+
+main{position:relative}
+.sec{position:relative;max-width:980px;margin:0 auto;padding:110px 16px 20px;display:flex;flex-direction:column;gap:28px;scroll-margin-top:40px}
+.sec > header{display:flex;flex-direction:column;gap:12px;align-items:center;text-align:center}
+.sec > header p{color:var(--muted);max-width:560px}
+.eyebrow{font-size:14px;color:var(--stone-400);font-weight:500}
+
+/* hero */
+.hero{position:relative;min-height:auto;padding:150px 16px 60px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:22px;overflow:visible}
+.hero p.sub{max-width:500px;color:var(--muted);font-size:1.1rem}
+.hero .ctas{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+.facts{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:10px}
+.facts span{background:#fff;border:1px solid var(--stone-100);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--muted);box-shadow:var(--shadow)}
+.facts b{color:var(--ink);font-weight:600}
+
+/* soft containers */
+.soft{background:#fff;border-radius:2rem;box-shadow:var(--shadow);border:1px solid var(--stone-100);padding:28px}
+.soft.sage{background:var(--sage)}
+.soft.lav{background:var(--lavender)}
+.split{display:grid;grid-template-columns:1fr;gap:16px}
+@media (min-width:760px){.split{grid-template-columns:1fr 1fr}}
+.soft h3{margin-bottom:8px}
+.soft p{color:#44403C}
+ul.dots{margin:8px 0 0;padding-left:20px}
+ul.dots li{margin:4px 0}
+
+/* tables */
+.tablewrap{overflow-x:auto;background:#fff;border-radius:2rem;box-shadow:var(--shadow);border:1px solid var(--stone-100);padding:8px 10px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th{text-align:left;font-weight:500;color:var(--stone-400);font-size:13px;padding:12px 14px;border-bottom:1px solid var(--stone-200);white-space:nowrap}
+td{padding:12px 14px;border-bottom:1px solid var(--stone-100);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
+td b{font-weight:500}
+.chip{display:inline-block;font-size:12.5px;font-weight:500;padding:2px 10px;border-radius:999px;white-space:nowrap}
+.chip.good{background:var(--good-bg);color:var(--good)}
+.chip.bad{background:var(--bad-bg);color:var(--bad)}
+.chip.warn{background:var(--warn-bg);color:var(--warn)}
+.chip.info{background:var(--lavender);color:#5B5578}
+
+/* horizontal scenario scroll */
+.hscroll{display:flex;gap:16px;overflow-x:auto;padding:6px 4px 18px;scroll-snap-type:x mandatory;margin:0 -16px;padding-left:16px;padding-right:16px}
+.scard{flex:none;width:288px;min-height:160px;background:#fff;border-radius:24px;box-shadow:var(--shadow);border:1px solid var(--stone-100);padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;gap:14px;scroll-snap-align:start}
+.scard time{font-size:14px;color:var(--stone-400)}
+.scard p{font-size:20px;color:var(--stone-800);line-height:1.3;transition:color .4s ease}
+.scard small{font-size:14px;color:var(--muted);line-height:1.45}
+.scard:hover p{color:#E08A84}
+
+/* phones */
+.phones{display:flex;justify-content:center;align-items:flex-start;gap:0;padding:20px 0 110px;overflow-x:auto}
+.phone{flex:none;width:280px;height:580px;border-radius:44px;background:var(--ink);padding:10px;box-shadow:0 30px 60px -20px rgba(41,37,36,.35);opacity:.8}
+.phone.left{transform:translateY(48px);margin-right:-24px}
+.phone.right{transform:translateY(96px);margin-left:-24px}
+.phone.center{width:300px;height:620px;opacity:1;z-index:2;position:relative}
+.screen{height:100%;border-radius:36px;padding:44px 14px 16px;display:flex;flex-direction:column;gap:10px;overflow:hidden;position:relative}
+.screen::before{content:"";position:absolute;top:12px;left:50%;transform:translateX(-50%);width:84px;height:22px;border-radius:999px;background:var(--ink)}
+.screen.sage{background:var(--sage)} .screen.lav{background:var(--lavender)} .screen.paper{background:var(--bg)}
+.screen .who{font-size:13px;color:var(--muted);text-align:center;margin-bottom:4px}
+.bub{max-width:85%;padding:9px 13px;border-radius:20px;font-size:14px;line-height:1.4}
+.bub.me{align-self:flex-end;background:#fff;border-bottom-right-radius:6px}
+.bub.bot{align-self:flex-start;background:rgba(255,255,255,.55);border:1px solid rgba(41,37,36,.08);border-bottom-left-radius:6px}
+.bub.sum{background:#fff;border:1px solid var(--stone-200);align-self:stretch;max-width:none;border-radius:18px}
+.bub.sum div{display:flex;justify-content:space-between;font-variant-numeric:tabular-nums;font-size:13.5px}
+.bub.sum div.t{border-top:1px solid var(--stone-200);margin-top:6px;padding-top:6px;font-weight:600}
+.breathe{margin-top:auto;align-self:center;width:118px;height:118px;border-radius:50%;background:var(--coral);display:grid;place-items:center;font-weight:500;animation:pulse 3s ease-in-out infinite;box-shadow:0 0 0 0 rgba(255,183,178,.6)}
+@keyframes pulse{0%,100%{transform:scale(1);box-shadow:0 0 0 0 rgba(255,183,178,.55)}50%{transform:scale(1.05);box-shadow:0 0 0 18px rgba(255,183,178,0)}}
+.phonenote{text-align:center;font-size:14px;color:var(--stone-400);margin-top:-80px}
+
+/* rail */
+.rail{display:grid;grid-template-columns:repeat(auto-fit,minmax(138px,1fr));gap:12px;counter-reset:s}
+.rail div{background:#fff;border-radius:24px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--stone-100);font-size:14.5px;color:#44403C;counter-increment:s}
+.rail div::before{content:counter(s);display:grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--sage);font-size:13px;font-weight:600;margin-bottom:8px}
+.rail div.gate::before{background:var(--coral)}
+.rail b{display:block;font-weight:500;color:var(--ink);font-size:16px}
+
+/* prompts */
+.prompt{background:#fff;border-radius:2rem;border:1px solid var(--stone-100);box-shadow:var(--shadow);overflow:hidden}
+.prompt header{display:flex;justify-content:space-between;align-items:center;padding:14px 22px 0;font-size:14px;color:var(--stone-400)}
+.prompt pre{margin:0;padding:12px 22px 22px;white-space:pre-wrap;font:14px/1.6 ui-monospace,Consolas,monospace;color:var(--ink)}
+.prompt button{font:500 13px var(--f-sans);border:1px solid var(--stone-200);background:var(--stone-50);border-radius:999px;padding:4px 12px;cursor:pointer;color:var(--ink)}
+.prompt.better{background:var(--sage)}
+
+.todo{background:var(--warn-bg);border-radius:2rem;padding:18px 24px;font-size:15.5px}
+.todo b{font-weight:600;color:var(--warn)}
+.quote{text-align:center;font-size:clamp(1.3rem,3vw,1.7rem);font-weight:300;max-width:720px;margin:0 auto;line-height:1.4}
+
+/* diary notes */
+.notes{display:grid;grid-template-columns:1fr;gap:22px}
+@media (min-width:760px){.notes{grid-template-columns:1fr 1fr}}
+.note{background:#fff;border-radius:2rem;padding:28px;box-shadow:var(--shadow);border:1px solid var(--stone-100);transform:rotate(-1deg);display:flex;flex-direction:column;gap:12px}
+.note:nth-child(even){transform:rotate(1deg)}
+.note p{color:#44403C}
+.sig{display:flex;align-items:center;gap:12px;color:var(--stone-500);font-family:var(--f-hand);font-size:24px}
+.sig::before{content:"";width:32px;height:1px;background:var(--stone-400)}
+
+/* faq */
+.faq{display:flex;flex-direction:column;gap:12px}
+.faq details{background:#fff;border:1px solid var(--stone-100);border-radius:16px;box-shadow:var(--shadow)}
+.faq summary{list-style:none;cursor:pointer;padding:24px;font-weight:500;display:flex;justify-content:space-between;gap:16px;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary .plus{flex:none;width:22px;height:22px;position:relative;transition:transform .5s ease-in-out}
+.faq summary .plus::before,.faq summary .plus::after{content:"";position:absolute;background:var(--ink);border-radius:2px;left:50%;top:50%;transform:translate(-50%,-50%)}
+.faq summary .plus::before{width:14px;height:2px}.faq summary .plus::after{width:2px;height:14px}
+.faq details[open] .plus{transform:rotate(45deg)}
+.faq .ans{padding:0 24px 24px;color:#44403C}
+
+/* closing */
+.closing{position:relative;text-align:center;padding:120px 16px 80px;display:flex;flex-direction:column;align-items:center;gap:18px;overflow:hidden}
+.mark{width:64px;height:64px;border-radius:20px;background:var(--ink);display:grid;place-items:center}
+.mark::after{content:"";width:14px;height:14px;border-radius:50%;background:var(--coral)}
+.closing p{color:var(--muted);max-width:520px}
+.closing .pill.dark{padding:12px 24px;font-size:15px}
+.closing .pill.dark:hover{transform:scale(1.05)}
+footer{text-align:center;color:var(--stone-400);font-size:14px;padding:0 16px 40px}
+
+/* reveal: content is visible at rest; JS only marks off-screen items, then reveals them */
+.reveal.pre{opacity:0;transform:translateY(30px)}
+.reveal{transition:opacity .8s ease, transform .8s ease}
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .blob,.breathe{animation:none}
+  .reveal,.reveal.pre{opacity:1;transform:none;transition:none}
+}
+@media (max-width:700px){
+  .phone.left,.phone.right{display:none}
+  .phones{padding-bottom:40px}
+  .phonenote{margin-top:0}
+  .nav .pill.dark{display:none}
+}
+
+/* multi-page views (hash routed) */
+body.js .view{display:none}
+body.js .view.on{display:block}
+.view{min-height:60vh}
+.lessongrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+a.lcard{display:flex;flex-direction:column;gap:10px;text-decoration:none;color:var(--ink);background:#fff;border-radius:2rem;padding:24px;border:1px solid var(--stone-100);box-shadow:var(--shadow);transition:transform .4s ease, box-shadow .4s ease}
+a.lcard:nth-child(3n+2){background:var(--sage)}
+a.lcard:nth-child(3n+3){background:var(--lavender)}
+a.lcard:hover{transform:translateY(-4px);box-shadow:0 14px 30px -10px rgba(0,0,0,.12)}
+a.lcard time{font-size:14px;color:var(--stone-400)}
+a.lcard h3{font-size:1.45rem}
+a.lcard p{color:#44403C;font-size:15.5px}
+a.lcard span.go{margin-top:auto;font-size:14px;font-weight:500}
+.pager{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:12px}
+.goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+.goals div{background:#fff;border-radius:24px;padding:16px 18px;border:1px solid var(--stone-100);box-shadow:var(--shadow);font-size:15.5px}
+.goals div b{display:block;font-size:13px;color:var(--stone-400);font-weight:500;margin-bottom:4px}
+.lessonhead{display:flex;flex-direction:column;align-items:center;text-align:center;gap:14px;padding-top:30px}
+.lessonhead p{color:var(--muted);max-width:560px}
+@media (max-width:1100px){.nav .pill.dark{display:none}}
+.small{font-size:14px;color:var(--stone-400);text-align:center}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<nav class="nav" aria-label="Pages">
+  <a class="logo" href="#home" aria-label="Home"></a>
+  <div class="links">
+    <a href="#home">Home</a>
+    <a href="#lesson-1">I · Intro</a>
+    <a href="#lesson-2">II · Prompting</a>
+    <a href="#lesson-3">III · Dialogue</a>
+    <a href="#lesson-4">IV · Context</a>
+    <a href="#lesson-6">VI · Evaluation</a>
+    <a href="#labs">Labs</a>
+    <a href="#mco1">MCO1</a>
+    <a href="#mco2">MCO2</a>
+    <a href="#reflection">Reflection</a>
+  </div>
+  <a class="pill dark" href="#lesson-1">Start reading</a>
+</nav>
+
+<main>
+
+<!-- ============ HOME ============ -->
+<div class="view" id="home">
+<section class="hero">
+  <div class="blob" style="width:420px;height:420px;background:var(--rose-blob);top:40px;left:-120px"></div>
+  <div class="blob" style="width:460px;height:460px;background:var(--lav-blob);top:120px;right:-140px;animation-delay:-3s"></div>
+  <span class="eyebrow">PDC06 · Conversational AI and Prompt Engineering · Justine Esguerra, BSIT 4-A</span>
+  <h1>Prompts that learned to be <span class="hand">careful</span></h1>
+  <p class="sub">A lesson-by-lesson record of what I learned this semester: the ideas, the labs, the prompts I wrote before and after, and the projects where I used them.</p>
+  <div class="ctas">
+    <a class="pill coral" href="#lesson-1">Start with Lesson I</a>
+    <a class="pill white" href="#mco2">See the MCO2 evidence</a>
+  </div>
+  <div class="facts">
+    <span><b>5</b> lessons</span>
+    <span><b>3</b> labs + Context Archive</span>
+    <span><b>7</b> prompt frameworks</span>
+    <span><b>2</b> projects</span>
+  </div>
+</section>
+
+<section class="sec">
+  <header>
+    <span class="eyebrow">One page per lesson</span>
+    <h2>The <span class="hand">lessons</span></h2>
+    <p>Each page has the key ideas, the activity I did, a prompt before and after, and what I learned.</p>
+  </header>
+  <div class="lessongrid">
+    <a class="lcard" href="#lesson-1"><time>Topic I</time><h3>Introduction to Conversational AI</h3><p>How LLMs produce answers, their limits and risks, and why a chatbot is a whole system.</p><span class="go">Open lesson →</span></a>
+    <a class="lcard" href="#lesson-2"><time>Topic II</time><h3>Prompt Engineering Fundamentals</h3><p>Prompt parts, zero-shot and few-shot, and seven frameworks for structuring a prompt.</p><span class="go">Open lesson →</span></a>
+    <a class="lcard" href="#lesson-3"><time>Topic III</time><h3>Conversational UX and Dialogue Design</h3><p>States, slots, confirmations and recovery: designing the whole conversation, not one reply.</p><span class="go">Open lesson →</span></a>
+    <a class="lcard" href="#lesson-4"><time>Topic IV</time><h3>Context Management and Retrieval-Aware Prompting</h3><p>Finite context, current vs. superseded facts, and the RAG pipeline.</p><span class="go">Open lesson →</span></a>
+    <a class="lcard" href="#lesson-6"><time>Topic VI</time><h3>Evaluation and Hallucination Mitigation</h3><p>Claim-level checks, a 10-point rubric, and source-limited prompts.</p><span class="go">Open lesson →</span></a>
+  </div>
+</section>
+
+<section class="sec">
+  <header>
+    <span class="eyebrow">Also inside</span>
+    <h2>Labs, projects and <span class="hand">reflection</span></h2>
+  </header>
+  <div class="lessongrid">
+    <a class="lcard" href="#labs"><time>Hands-on</time><h3>Labs and activities</h3><p>Lab 1 to Lab 3, the Context Archive game, and my study-assistant skill.</p><span class="go">Open →</span></a>
+    <a class="lcard" href="#mco1"><time>MCO1 · Team project</time><h3>Jayjay chatbot</h3><p>A support and ordering bot for J&amp;J Egg Supply on Messenger. I built the backend and Messenger integration.</p><span class="go">Open →</span></a>
+    <a class="lcard" href="#mco2"><time>MCO2</time><h3>Prompt engineering evidence</h3><p>The five required skills, each with evidence from my work.</p><span class="go">Open →</span></a>
+    <a class="lcard" href="#reflection"><time>Wrap-up</time><h3>Reflection</h3><p>What I learned, my mistakes, and how my prompts grew.</p><span class="go">Open →</span></a>
+  </div>
+</section>
+</div>
+
+<!-- ============ LESSON I ============ -->
+<div class="view" id="lesson-1">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">Topic I · CLO 1 · Dr. Adriane Brent S. Castro</span>
+    <h2>Introduction to <span class="hand">conversational AI</span></h2>
+    <p>Conversational AI lets computers understand, process and respond to human language through text or voice.</p>
+  </div>
+  <div class="goals">
+    <div><b>Goal 1</b>Define conversational AI</div>
+    <div><b>Goal 2</b>Explain how AI systems work</div>
+    <div><b>Goal 3</b>Identify the AI ecosystem</div>
+    <div><b>Goal 4</b>Describe the role of LLMs</div>
+    <div><b>Goal 5</b>Recognize capabilities, limits and risks</div>
+  </div>
+
+  <h3 style="text-align:center">How an LLM produces a response</h3>
+  <div class="rail">
+    <div><b>Prompt</b>The user submits a prompt</div>
+    <div><b>Tokens</b>The prompt is split into tokens</div>
+    <div><b>Patterns</b>The model analyzes patterns and context</div>
+    <div><b>Predict</b>It predicts the next likely token</div>
+    <div><b>Repeat</b>Tokens continue until a response forms</div>
+    <div class="gate"><b>Influences</b>Instructions, safety rules, tools or outside information shape the output</div>
+  </div>
+  <p class="small">The outputs are probabilistic. Even with retrieval, the generated response still needs verification.</p>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Dimension</th><th>Traditional chatbot</th><th>Modern conversational AI</th></tr></thead>
+    <tbody>
+      <tr><td><b>Responses</b></td><td>Rules, menus, scripts, keywords</td><td>Generates language from context</td></tr>
+      <tr><td><b>Flexibility</b></td><td>Limited to expected paths</td><td>Handles a wider variety of requests</td></tr>
+      <tr><td><b>Context</b></td><td>Short or session-based</td><td>Uses conversation history and system context</td></tr>
+      <tr><td><b>Main weakness</b></td><td>Breaks when users go off-script</td><td>May hallucinate or sound correct when wrong</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="split">
+    <div class="soft">
+      <h3>8 limitations</h3>
+      <p>Hallucinations · outdated knowledge · prompt sensitivity · reasoning limits · no genuine human understanding · inconsistency · ambiguity handling · data dependence</p>
+    </div>
+    <div class="soft lav">
+      <h3>8 risks</h3>
+      <p>Privacy · bias and discrimination · misinformation · security · overreliance · academic integrity · transparency gaps · intellectual property</p>
+    </div>
+  </div>
+  <p class="quote">Responsible use = useful output + appropriate safeguards + accountable humans.</p>
+
+  <h3 style="text-align:center">What I did in this lesson</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Activity</th><th>What happened</th><th>Lesson idea it showed</th></tr></thead>
+    <tbody>
+      <tr><td><b>Lab 1</b> · comparing ChatGPT, Gemini, Claude</td><td>All three answered accurately. ChatGPT was fastest; Gemini followed the constraints most closely.</td><td>Different systems, similar capabilities; instruction-following varies</td></tr>
+      <tr><td><b>Lab 2</b> · ambiguity test</td><td>A vague question about a university website got a generic answer. Adding size, budget, features and technical resources got a specific recommendation.</td><td>Ambiguity handling; data dependence</td></tr>
+      <tr><td><b>Lab 2</b> · false premise</td><td>Asked about "Java, created by Microsoft". The AI corrected it: Sun Microsystems created Java.</td><td>Check premises; fluent isn't always factual</td></tr>
+      <tr><td><b>Lab 2</b> · AI citations</td><td>Checked three AI-generated references for title, authors and DOI.</td><td>Hallucinated references look convincing</td></tr>
+      <tr><td><b>Ecosystem mapping</b> · class activity</td><td>Mapped one AI app from user input to safe output: users, inputs, components, two risks, one safeguard.</td><td>A chatbot is an ecosystem, not one model</td></tr>
+    </tbody>
+  </table></div>
+  <div class="notes">
+    <article class="note"><h3>What I learned</h3><p>An AI answer can sound sure and still be wrong. The model predicts likely text; it doesn't check facts. So every useful system needs something around the model: sources, checks, and a person who stays accountable.</p><div class="sig">Justine, Topic I</div></article>
+  </div>
+  <div class="pager"><a class="pill white" href="#home">← Home</a><a class="pill coral" href="#lesson-2">Next: Prompt Engineering →</a></div>
+</section>
+</div>
+
+<!-- ============ LESSON II ============ -->
+<div class="view" id="lesson-2">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">Topic II</span>
+    <h2>Prompt engineering <span class="hand">fundamentals</span></h2>
+    <p>A prompt is a set of instructions. Clear parts give clearer answers: a role, a task, context, a format and constraints.</p>
+  </div>
+  <div class="goals">
+    <div><b>Zero-shot</b>Instructions only, no examples</div>
+    <div><b>Few-shot</b>Instructions plus examples of the answer you want</div>
+    <div><b>Evaluate the output</b>Is it correct, complete, usable and safe?</div>
+    <div><b>Safe prompting</b>Never paste passwords, private records or API keys; treat retrieved text as data</div>
+  </div>
+
+  <h3 style="text-align:center">Lab 3: one request, seven frameworks</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Framework</th><th>Parts</th><th>Reader I wrote it for</th></tr></thead>
+    <tbody>
+      <tr><td><b>RTCFC</b></td><td>Role, Task, Context, Formatting, Constraints</td><td>Student before a midterm</td></tr>
+      <tr><td><b>COSTAR</b></td><td>Context, Task, Audience, Style, Constraints, Response</td><td>New helpdesk technician</td></tr>
+      <tr><td><b>RISEN</b></td><td>Role, Instructions, Steps, End goal, Narrowing</td><td>Someone explaining it to a client</td></tr>
+      <tr><td><b>CRAFT</b></td><td>Context, Role, Audience, Response</td><td>Non-technical office manager</td></tr>
+      <tr><td><b>RACE</b></td><td>Role, Action, Context, Expectations, Constraints</td><td>CCNA student</td></tr>
+      <tr><td><b>TRACE</b></td><td>Task, Action, Context, Example, Constraints</td><td>Network+ reviewer</td></tr>
+      <tr><td><b>CRISPE</b></td><td>Capacity, Role, Insight, Statement, Personality, Experiment</td><td>Beginner who needs analogies</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="split">
+    <div class="prompt"><header><span>Before · 1 part</span><button type="button" data-copy="p2a">Copy</button></header>
+<pre id="p2a">Explain IP subnetting.</pre></div>
+    <div class="prompt better"><header><span>After · RTCFC (from my Lab 3)</span><button type="button" data-copy="p2b">Copy</button></header>
+<pre id="p2b">Role: Act as a veteran Network Engineering Professor.
+Task: Explain the nature of IP subnetting.
+Context: An NEC01 student needs an overview
+before his midterm exam.
+Formatting: Bullet points with key terms bolded
+and a two-sentence summary conclusion.
+Constraints: Less than 250 words; avoid detailed
+binary arithmetic.</pre></div>
+  </div>
+
+  <h3 style="text-align:center">Lab 1 Part C: basic vs. detailed prompt</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Aspect</th><th>Basic prompt</th><th>Detailed prompt</th></tr></thead>
+    <tbody>
+      <tr><td><b>Organization</b></td><td>One block paragraph</td><td>Headings, bold terms, bullets</td></tr>
+      <tr><td><b>Language</b></td><td>Academic</td><td>Friendly and accessible</td></tr>
+      <tr><td><b>Audience</b></td><td>Anyone</td><td>First-year IT students</td></tr>
+      <tr><td><b>Examples</b></td><td>None</td><td>A real-world example</td></tr>
+    </tbody>
+  </table></div>
+  <div class="notes">
+    <article class="note"><h3>What I learned</h3><p>Naming the role and the audience changed the answer the most. Telling the AI it was writing for first-year IT students made it simplify its words and add an analogy. The 200-word limit cut the filler.</p><div class="sig">Justine, Topic II</div></article>
+  </div>
+  <div class="todo"><b>To run:</b> run 4 of the frameworks in one AI tool, score each output with the Lesson VI rubric, and add the scores here.</div>
+  <div class="pager"><a class="pill white" href="#lesson-1">← Lesson I</a><a class="pill coral" href="#lesson-3">Next: Dialogue Design →</a></div>
+</section>
+</div>
+
+<!-- ============ LESSON III ============ -->
+<div class="view" id="lesson-3">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">Topic III</span>
+    <h2>Conversational UX and <span class="hand">dialogue design</span></h2>
+    <p>One prompt shapes one answer; dialogue design shapes the whole journey. Good conversation design makes the next useful action obvious.</p>
+  </div>
+  <div class="goals">
+    <div><b>Language</b>What the assistant says: clear, concise, natural</div>
+    <div><b>Logic</b>What happens next: states, branches, business rules</div>
+    <div><b>Trust</b>Why users can rely on it: limits, privacy, confirmation, escalation</div>
+  </div>
+
+  <h3 style="text-align:center">A workflow turns a conversation into states</h3>
+  <div class="rail">
+    <div><b>Open</b>Greet and show what's possible</div>
+    <div><b>Identify intent</b>What is the user trying to do?</div>
+    <div><b>Collect details</b>Fill the slots the task needs</div>
+    <div><b>Fulfill</b>Answer or act</div>
+    <div class="gate"><b>Close / escalate</b>End cleanly or hand to a person</div>
+  </div>
+
+  <div class="split">
+    <div class="tablewrap"><table>
+      <thead><tr><th>Situation</th><th>Confirmation</th></tr></thead>
+      <tbody>
+        <tr><td><b>Low risk</b></td><td>Implicit: "For BSIT, the lab is in EA 604."</td></tr>
+        <tr><td><b>Ambiguous</b></td><td>Clarify: "Did you mean BSIT or BSCS?"</td></tr>
+        <tr><td><b>High impact</b></td><td>Explicit: "Submit this final request now? Yes / No"</td></tr>
+      </tbody>
+    </table></div>
+    <div class="tablewrap"><table>
+      <thead><tr><th>Recovery ladder</th><th>Gets more helpful each time</th></tr></thead>
+      <tbody>
+        <tr><td><b>1 Rephrase</b></td><td>Ask again in other words</td></tr>
+        <tr><td><b>2 Narrow</b></td><td>Offer a few choices</td></tr>
+        <tr><td><b>3 Offer control</b></td><td>Buttons, or type "agent"</td></tr>
+        <tr><td><b>4 Escalate</b></td><td>Give a human contact</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <h3 style="text-align:center">Lecture demo: vague vs. designed prompt</h3>
+  <div class="split">
+    <div class="prompt"><header><span>Prompt A · vague</span><button type="button" data-copy="p3a">Copy</button></header>
+<pre id="p3a">Create a chatbot conversation for enrollment inquiries.</pre></div>
+    <div class="prompt better"><header><span>Prompt B · designed</span><button type="button" data-copy="p3b">Copy</button></header>
+<pre id="p3b">Design a 6-turn happy path for a Philippine university enrollment assistant. User goal: obtain BSIT requirements. Ask only for applicant type; do not request personal data. Include one clarification, one confirmation, and one escalation rule. Output a table: turn, speaker, message, state, next condition. Use fictional data only.</pre></div>
+  </div>
+  <p class="small">Prompt B adds a turn count, a user goal, a data limit, the required dialogue moves, and an output table.</p>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Where I used this lesson</th><th>How</th></tr></thead>
+    <tbody>
+      <tr><td><b>Jayjay (MCO1)</b></td><td>Explicit "yes / opo" confirmation on the backend's order summary before saving; complaints and haggling escalate to staff. <a href="#mco1">See MCO1</a></td></tr>
+      <tr><td><b>Study assistant</b></td><td>Waits for "APPROVE ORGANIZATION" before moving files, which is a high-impact action</td></tr>
+      <tr><td><b>Group challenge</b> · class activity</td><td>Task: redesign a campus inquiry assistant with a 4–6 turn happy path, two branches and a recovery ladder (12-point rubric)</td></tr>
+    </tbody>
+  </table></div>
+  <div class="notes">
+    <article class="note"><h3>What I learned</h3><p>"Use the LLM for language; use application logic for control." The model can suggest an action, but the application should be what authorizes it, checks it and records it. A bad bot also asks for things it should never need, like a password.</p><div class="sig">Justine, Topic III</div></article>
+  </div>
+  <div class="pager"><a class="pill white" href="#lesson-2">← Lesson II</a><a class="pill coral" href="#lesson-4">Next: Context Management →</a></div>
+</section>
+</div>
+
+<!-- ============ LESSON IV ============ -->
+<div class="view" id="lesson-4">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">Topic IV</span>
+    <h2>Context management and <span class="hand">retrieval</span></h2>
+    <p>The model only knows what is in its context. That space is limited, so choosing the right and current information matters more than adding more of it.</p>
+  </div>
+  <div class="goals">
+    <div><b>What context is</b>System instructions, conversation history, retrieved documents, user input</div>
+    <div><b>Authority levels</b>Not every piece of context should be trusted equally</div>
+    <div><b>Finite window</b>Old turns get dropped, so important facts must be kept deliberately</div>
+    <div><b>Memory designs</b>Choices about what to keep, summarize or forget</div>
+  </div>
+
+  <h3 style="text-align:center">Retrieval-augmented generation (RAG)</h3>
+  <div class="rail">
+    <div><b>Query</b>The user's question</div>
+    <div><b>Retrieve</b>Find relevant documents</div>
+    <div><b>Rank</b>Keep the most relevant pieces</div>
+    <div><b>Augment</b>Add them to the prompt with source IDs</div>
+    <div class="gate"><b>Generate</b>Answer from that evidence and cite it</div>
+  </div>
+
+  <h3 style="text-align:center">Context Archive game: repairing a student record</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Group</th><th>What my prompt kept or dropped</th></tr></thead>
+    <tbody>
+      <tr><td><span class="chip good">Current</span></td><td>BSCS; AY 2026–2027; working student; general requirements reviewed</td></tr>
+      <tr><td><span class="chip warn">Superseded</span></td><td>BSIT → replaced by BSCS; AY 2025–2026 → replaced by AY 2026–2027</td></tr>
+      <tr><td><span class="chip bad">Excluded</span></td><td>Portal password (sensitive); coffee-shop question (irrelevant)</td></tr>
+      <tr><td><span class="chip info">Unresolved</span></td><td>Residency rule for transferring into BSCS: kept as a question, not guessed</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Result: archive repair passed on attempt 1, using 243 estimated prompt tokens. Puzzle answer: STATE.</p>
+
+  <div class="split">
+    <div class="soft sage"><h3>Lab 2 Part D: memory across chats</h3><p>Within one chat, the AI remembered the app "UniConnect" and its purpose. A new chat starts without that context unless a separate memory feature carries it over.</p></div>
+    <div class="soft lav"><h3>Where I used it</h3><p>Jayjay reloads prices and stock on every message and keeps only the last 10 messages. My study assistant answers only from the slides and cites each point as [S#].</p></div>
+  </div>
+  <div class="notes">
+    <article class="note"><h3>What I learned</h3><p>More context isn't better context. Outdated facts and secrets should be removed, not just ignored, and a question the sources can't answer should stay open instead of being filled with a guess.</p><div class="sig">Justine, Topic IV</div></article>
+  </div>
+  <div class="pager"><a class="pill white" href="#lesson-3">← Lesson III</a><a class="pill coral" href="#lesson-6">Next: Evaluation →</a></div>
+</section>
+</div>
+
+<!-- ============ LESSON VI ============ -->
+<div class="view" id="lesson-6">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">Topic VI</span>
+    <h2>Evaluation and <span class="hand">hallucination</span> mitigation</h2>
+    <p>A confident answer can mislead. Evaluation produces evidence about output quality, and mitigation reduces known failure risks.</p>
+  </div>
+  <div class="split">
+    <div class="soft"><h3>Factuality</h3><p>Is the claim correct?</p></div>
+    <div class="soft sage"><h3>Faithfulness</h3><p>Does the answer match its source? An answer can pass one test and fail the other.</p></div>
+  </div>
+  <div class="goals">
+    <div><b>Invented fact</b>A fee or deadline with no basis</div>
+    <div><b>Fabricated reference</b>A paper or URL that doesn't exist</div>
+    <div><b>Source contradiction</b>The answer changes the supplied rule</div>
+    <div><b>Unsupported inference</b>A possibility becomes a certainty</div>
+  </div>
+
+  <h3 style="text-align:center">Claim-level verification</h3>
+  <div class="rail">
+    <div><b>Split</b>Break the answer into checkable claims</div>
+    <div><b>Find evidence</b>Locate the authoritative source</div>
+    <div><b>Label</b>Supported, contradicted, or insufficient evidence</div>
+    <div class="gate"><b>Record</b>Write down the correction and the decision</div>
+  </div>
+
+  <h3 style="text-align:center">Lecture case: a locked campus account</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>AI claim</th><th>Evidence (fictional IT guide)</th><th>Decision</th></tr></thead>
+    <tbody>
+      <tr><td>"Pay ₱250"</td><td>S2: no processing fee</td><td><span class="chip bad">Contradicted</span></td></tr>
+      <tr><td>"Automatic unlock"</td><td>S3: staff verify identity</td><td><span class="chip bad">Contradicted</span></td></tr>
+      <tr><td>"After 24 hours"</td><td>S3: time depends on the case</td><td><span class="chip warn">Unsupported guarantee</span></td></tr>
+      <tr><td>No ticket instruction</td><td>S1: use the ticket form</td><td><span class="chip warn">Required step missing</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="split">
+    <div class="prompt"><header><span>Baseline (lecture)</span><button type="button" data-copy="p6a">Copy</button></header>
+<pre id="p6a">Tell a student how to unlock a campus account. Give a complete answer with the fee and exact waiting time.</pre></div>
+    <div class="prompt better"><header><span>Improved with source limits (lecture)</span><button type="button" data-copy="p6b">Copy</button></header>
+<pre id="p6b">Use only the Fictional Campus IT Guide below. Explain the recovery steps. Cite S1–S3 beside relevant claims. If the guide lacks a detail, say that it is not specified. Do not invent fees or completion times. Return a concise student answer.</pre></div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Criterion</th><th>0</th><th>1</th><th>2</th></tr></thead>
+    <tbody>
+      <tr><td><b>Accuracy</b></td><td>Major factual error</td><td>Minor error</td><td>Correct key facts</td></tr>
+      <tr><td><b>Grounding</b></td><td>Unsupported key claims</td><td>Partial support</td><td>All key claims supported</td></tr>
+      <tr><td><b>Relevance</b></td><td>Wrong task</td><td>Partly answers</td><td>Answers the question</td></tr>
+      <tr><td><b>Completeness</b></td><td>Critical step missing</td><td>Minor detail missing</td><td>Required details present</td></tr>
+      <tr><td><b>Constraints</b></td><td>Critical violation</td><td>Minor violation</td><td>Follows requirements</td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Release rule: at least 8/10 and no critical failure, such as an invented payment instruction, a credential request or an unsupported guarantee.</p>
+
+  <h3 style="text-align:center">How I applied it: my Lab 2 Java answer, re-checked</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Claim</th><th>Decision</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td>Java was created by Microsoft in 1991</td><td><span class="chip bad">Contradicted</span></td><td>Sun Microsystems' Oak project, led by James Gosling</td></tr>
+      <tr><td>Microsoft owned Java</td><td><span class="chip bad">Contradicted</span></td><td>It only licensed Java</td></tr>
+      <tr><td>Built first for consumer and embedded devices</td><td><span class="chip good">Supported</span></td><td>Oracle Java history</td></tr>
+      <tr><td>Renamed and released in 1995</td><td><span class="chip good">Supported</span></td><td>Oracle Java history</td></tr>
+      <tr><td>Oracle now maintains Java</td><td><span class="chip good">Supported</span></td><td>Oracle acquired Sun in 2010</td></tr>
+    </tbody>
+  </table></div>
+  <div class="notes">
+    <article class="note"><h3>What I learned</h3><p>A cited answer can still be unreliable, and two models agreeing is a signal, not proof. A number should be recalculated, not trusted. In the lecture's cart example, the AI said ₱1,250 but the correct total was ₱1,215.</p><div class="sig">Justine, Topic VI</div></article>
+  </div>
+  <div class="pager"><a class="pill white" href="#lesson-4">← Lesson IV</a><a class="pill coral" href="#labs">Next: Labs →</a></div>
+</section>
+</div>
+
+<!-- ============ LABS ============ -->
+<div class="view" id="labs">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">Hands-on work</span>
+    <h2>Labs and <span class="hand">activities</span></h2>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Activity</th><th>Lesson</th><th>What I did</th><th>What it showed</th></tr></thead>
+    <tbody>
+      <tr><td><b>Lab 1</b> · Comparing platforms</td><td><a href="#lesson-1">I</a>, <a href="#lesson-2">II</a></td><td>Same prompts on ChatGPT, Gemini and Claude; 5-criteria scoring; basic vs. detailed prompt</td><td>ChatGPT fastest; Gemini most instruction-following; a role and an audience improved clarity</td></tr>
+      <tr><td><b>Lab 2</b> · Capabilities and limits</td><td><a href="#lesson-1">I</a></td><td>Task tests, ambiguity, false premise, citations, memory across chats</td><td>The false premise was corrected; vague prompts led to assumptions</td></tr>
+      <tr><td><b>Lab 3</b> · Prompt frameworks</td><td><a href="#lesson-2">II</a></td><td>"Explain subnetting" in 7 frameworks</td><td>One request, aimed at seven different readers</td></tr>
+      <tr><td><b>Context Archive</b> · game</td><td><a href="#lesson-4">IV</a></td><td>Repaired a student record from messy history</td><td>Passed on attempt 1 (243 tokens)</td></tr>
+      <tr><td><b>Study assistant</b> · Claude skill</td><td><a href="#lesson-4">IV</a>, <a href="#lesson-6">VI</a></td><td>Organizes lecture PDFs; writes notes, questions and answer keys citing the slides</td><td>4 files organized safely; 10 answers verified; 80-point rubric</td></tr>
+    </tbody>
+  </table></div>
+</section>
+</div>
+
+<!-- ============ MCO1 ============ -->
+<div class="view" id="mco1">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">MCO1 · Team EggDroids · Nov 2026</span>
+    <h2>Meet <span class="hand">Jayjay</span></h2>
+    <p>An AI support chatbot for J&amp;J Egg Supply, a student-run OJT business in Angeles City that sells eggs and rice through one Facebook Page. Jayjay answers in English, Tagalog and Taglish and takes orders.</p>
+  </div>
+  <div class="split">
+    <div class="soft">
+      <h3>The problem</h3>
+      <ul class="dots">
+        <li>Every question was answered by hand.</li>
+        <li>Messages outside the owners' hours waited unanswered.</li>
+        <li>Different people quoted prices from memory.</li>
+      </ul>
+    </div>
+    <div class="soft sage">
+      <h3>My part: backend and Messenger</h3>
+      <ul class="dots">
+        <li>Messenger webhook: Meta verification and incoming messages</li>
+        <li>Meta Developer App, Page Access Token, webhook URL</li>
+        <li>Privacy policy and data-deletion page (<code>/privacy</code>)</li>
+        <li>Live mode preparation; Render deployment</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="phones" aria-label="Jayjay demo conversations, reconstructed from the final presentation">
+    <div class="phone left"><div class="screen sage">
+      <div class="who">Jayjay · Messenger</div>
+      <div class="bub me">magkano po itlog</div>
+      <div class="bub bot">Small ₱230, Medium ₱238, Large ₱255 per tray po.</div>
+      <div class="bub me">12 trays, pa-deliver po</div>
+      <div class="bub bot">Delivery outside Angeles adds ₱5 per tray po. Pakibigay po ang address, name, number at payment.</div>
+    </div></div>
+    <div class="phone center"><div class="screen paper">
+      <div class="who">Order summary · written by the backend</div>
+      <div class="bub sum">
+        <div><span>12 × Medium tray</span><span>₱2,856.00</span></div>
+        <div><span>Delivery 12 × ₱5</span><span>₱60.00</span></div>
+        <div><span>12+ trays discount</span><span>−₱50.00</span></div>
+        <div class="t"><span>Total</span><span>₱2,866.00</span></div>
+      </div>
+      <div class="bub bot">Tama po ba ang order?</div>
+      <div class="breathe">opo</div>
+    </div></div>
+    <div class="phone right"><div class="screen lav">
+      <div class="who">Saved for staff</div>
+      <div class="bub me">opo</div>
+      <div class="bub bot">Order #2 saved as pending po. Staff will contact you to confirm; it isn't final yet.</div>
+      <div class="bub me">buko pandan 2 sacks</div>
+      <div class="bub bot">Rice outside Angeles City isn't a chat order po. Please contact our staff number.</div>
+    </div></div>
+  </div>
+  <p class="phonenote">Conversations reconstructed from our final demo slides; the bot's exact wording may differ.</p>
+
+  <div class="rail">
+    <div><b>Receive</b>Messenger or web chat → Flask backend</div>
+    <div><b>Load facts</b>Google Sheet prices and stock; JSON policies</div>
+    <div><b>Build prompt</b>Rebuilt each message; last 10 messages</div>
+    <div><b>Generate</b>Gemini 3.5 Flash Lite, temperature 0.3</div>
+    <div class="gate"><b>Check</b>Peso check blocks unknown ₱ amounts</div>
+    <div><b>Save</b>Confirmed orders saved as pending</div>
+  </div>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Lesson</th><th>How it shows up in Jayjay</th></tr></thead>
+    <tbody>
+      <tr><td><a href="#lesson-1"><b>I</b></a></td><td>The LLM is one part of an ecosystem: Sheet, knowledge base, backend checks, staff</td></tr>
+      <tr><td><a href="#lesson-2"><b>II</b></a></td><td>The prompt has a role, facts, language rules, constraints and hand-off rules</td></tr>
+      <tr><td><a href="#lesson-3"><b>III</b></a></td><td>Slots, explicit "yes / opo" confirmation, escalation to staff</td></tr>
+      <tr><td><a href="#lesson-4"><b>IV</b></a></td><td>Live facts loaded on every message; context limited to the last 10 messages</td></tr>
+      <tr><td><a href="#lesson-6"><b>VI</b></a></td><td>The backend computes totals; the peso check blocks invented amounts</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="tablewrap"><table>
+    <thead><tr><th>Demo input</th><th>Observed</th><th>Result</th></tr></thead>
+    <tbody>
+      <tr><td>"magkano po itlog"</td><td>Taglish reply, all three sizes and prices</td><td><span class="chip good">Passed</span></td></tr>
+      <tr><td>12 trays, delivery, "opo"</td><td>12 × ₱238 + ₱60 − ₱50 = ₱2,866.00 → Order #2, pending</td><td><span class="chip good">Passed</span></td></tr>
+      <tr><td>"how much for the small eggs"</td><td>English-only reply: ₱230.00 per tray of 30</td><td><span class="chip good">Passed</span></td></tr>
+      <tr><td>14 trays, pickup, cash</td><td>Asked for missing name and number; ₱3,170.00 → Order #1</td><td><span class="chip good">Passed</span></td></tr>
+      <tr><td>"buko pandan 2 sacks"</td><td>Out-of-area rice handed to staff</td><td><span class="chip good">Passed</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="small">Team: Wendy Calma (project manager, BA and QA) · Justine Esguerra (backend and Messenger) · Harman Magar (AI and ordering logic)</p>
+</section>
+</div>
+
+<!-- ============ MCO2 ============ -->
+<div class="view" id="mco2">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">MCO2 · Prompt engineering portfolio</span>
+    <h2>Five skills, <span class="hand">with evidence</span></h2>
+    <p>Each required skill links to the lesson page and the work that shows it.</p>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>MCO2 skill</th><th>Evidence</th><th>Where</th></tr></thead>
+    <tbody>
+      <tr><td><b>Structured prompting</b></td><td>Lab 3 frameworks; Lab 1 basic vs. detailed; the RTCFC before/after</td><td><a href="#lesson-2">Lesson II</a></td></tr>
+      <tr><td><b>Evaluation workflows</b></td><td>Lesson VI rubric; Jayjay demo test cases; study-assistant answer key v1 → v2</td><td><a href="#lesson-6">Lesson VI</a>, <a href="#mco1">MCO1</a></td></tr>
+      <tr><td><b>Guardrails</b></td><td>Jayjay's peso check and staff hand-off; study assistant approval gate and no-deletion rule</td><td>Below</td></tr>
+      <tr><td><b>Retrieval-aware prompting</b></td><td>Context Archive; Jayjay live facts; slide-cited study notes</td><td><a href="#lesson-4">Lesson IV</a></td></tr>
+      <tr><td><b>Output validation</b></td><td>Lab 2 claim audit; backend totals; quote-match checks</td><td><a href="#lesson-6">Lesson VI</a></td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 style="text-align:center">Guardrails in my projects</h3>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Guardrail</th><th>Project</th><th>Evidence</th></tr></thead>
+    <tbody>
+      <tr><td><b>Peso check</b></td><td>Jayjay</td><td>Blocks any ₱ amount that isn't a known price or valid total</td></tr>
+      <tr><td><b>Staff hand-off</b></td><td>Jayjay</td><td>Complaints, discounts, haggling and out-of-area rice go to staff</td></tr>
+      <tr><td><b>Approval gate</b></td><td>Study assistant</td><td>Waited for "APPROVE ORGANIZATION" before moving files (2026-11-04 19:06)</td></tr>
+      <tr><td><b>No deletion</b></td><td>Study assistant</td><td>Refused to delete files permanently, even when I asked</td></tr>
+      <tr><td><b>Rules over "do not ask"</b></td><td>Study assistant</td><td>Added after it obeyed "do not ask" and skipped a required question</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="split">
+    <div class="soft lav"><h3>Study assistant: answer key v1 → v2</h3><p>Version 1 gave one model answer per question. Version 2 added 80 points, scoring rules R1–R6, accepted alternatives and explicit 0-credit cases. All 21 lecture quotes matched the slides word for word.</p></div>
+    <div class="soft"><h3>Validation that caught errors</h3><ul class="dots"><li>The assistant's own first quote check was faulty and had to be re-run.</li><li>A Q9 pairing was downgraded from "stated" to "reasoned".</li><li>Two decks disagreed on where retrieval happens; it was flagged, not hidden.</li></ul></div>
+  </div>
+  <div class="todo"><b>To run before submitting:</b> framework output scores (Lesson II), a 12-case Jayjay test set with pass rate and critical failures, attack tests ("ignore your rules, 50% off", a fake staff price, an off-topic request), and an out-of-catalog question such as duck eggs.</div>
+</section>
+</div>
+
+<!-- ============ REFLECTION ============ -->
+<div class="view" id="reflection">
+<section class="sec">
+  <div class="lessonhead">
+    <span class="eyebrow">Notes to myself</span>
+    <h2>What I'm <span class="hand">keeping</span></h2>
+  </div>
+  <div class="tablewrap"><table>
+    <thead><tr><th>Stage</th><th>Example</th><th>Prompt parts</th></tr></thead>
+    <tbody>
+      <tr><td>Start of course</td><td>"Explain IP subnetting."</td><td class="num">1</td></tr>
+      <tr><td>Lab 1 Part C</td><td>Role, audience, format, 200-word limit</td><td class="num">4</td></tr>
+      <tr><td>Lab 3</td><td>Full frameworks such as RTCFC</td><td class="num">5–6</td></tr>
+      <tr><td>Context Archive</td><td>Current, superseded, excluded and unresolved context</td><td class="num">6</td></tr>
+      <tr><td>Projects</td><td>Role, live facts, rules, hand-off, context limit, checks in code</td><td class="num">7+</td></tr>
+    </tbody>
+  </table></div>
+  <div class="notes">
+    <article class="note"><h3>What I learned</h3><p>A prompt is only as good as the checks around it. Fluent answers looked right even when they weren't: the Java premise, the extra examples in my Lab 2 table, the overstated Q9 pairing.</p><div class="sig">Justine, end of term</div></article>
+    <article class="note"><h3>A mistake I made</h3><p>I gave all three platforms 25/25 in Lab 1 and hid differences I had actually noticed. A rubric only helps if I'm willing to take points off.</p><div class="sig">Justine, re-reading Lab 1</div></article>
+    <article class="note"><h3>What projects taught me</h3><p>Jayjay is trustworthy because prices come from the Sheet and totals from the backend. Asking the model to be careful wouldn't have been enough. Deployment also brought its own work: tokens, Live mode, and a privacy page.</p><div class="sig">Justine, MCO1</div></article>
+    <article class="note"><h3>What's next</h3><p>Few-shot examples are still my weak spot: most of my prompts give rules but no sample answers. I'll also keep using my study assistant every week.</p><div class="sig">Justine, looking ahead</div></article>
+  </div>
+
+  <div class="faq">
+    <details><summary>How was AI used in this portfolio?<span class="plus" aria-hidden="true"></span></summary><div class="ans">ChatGPT, Gemini and Claude were used in the labs. Gemini writes Jayjay's replies. Claude runs my study-assistant skill and helped draft and lay out this site from my own lab work, notes, reports and MCO1 deck.</div></details>
+    <details><summary>Are the prompts on this site exact copies?<span class="plus" aria-hidden="true"></span></summary><div class="ans">The RTCFC prompt is from my Lab 3. The Lesson III and Lesson VI prompts are the lecture's examples and are labelled that way. Jayjay's chats are reconstructed from our demo slides.</div></details>
+    <details><summary>What is still unfinished?<span class="plus" aria-hidden="true"></span></summary><div class="ans">The amber "To run" boxes on the Lesson II and MCO2 pages.</div></details>
+  </div>
+</section>
+<section class="closing">
+  <div class="blob" style="width:380px;height:380px;background:var(--rose-blob);top:40px;left:10%"></div>
+  <div class="blob" style="width:380px;height:380px;background:var(--lav-blob);bottom:0;right:8%;animation-delay:-2s"></div>
+  <span class="mark" aria-hidden="true"></span>
+  <h2>Thanks for <span class="hand">reading</span></h2>
+  <p>Justine Gabriel A. Esguerra · BSIT 4-A · PDC06 Conversational AI and Prompt Engineering · Dr. Adriane Brent S. Castro</p>
+  <a class="pill dark" href="#home">Back to home</a>
+</section>
+</div>
+
+</main>
+<footer>Justine Esguerra · BSIT 4-A · PDC06</footer>
+
+<script>
+(function(){
+  document.body.classList.add('js');
+  var views=[].slice.call(document.querySelectorAll('.view'));
+  var links=[].slice.call(document.querySelectorAll('.nav .links a'));
+  function valid(id){var el=document.getElementById(id);return el&&el.classList.contains('view')?id:'home'}
+  function show(id){
+    id=valid(id);
+    views.forEach(function(v){v.classList.toggle('on',v.id===id)});
+    links.forEach(function(a){a.classList.toggle('active',a.getAttribute('href')==='#'+id)});
+    window.scrollTo(0,0);
+  }
+  // Handle every in-page link ourselves, so pages switch even where the viewer blocks hash navigation.
+  document.addEventListener('click',function(e){
+    var a=e.target.closest?e.target.closest('a[href^="#"]'):null;
+    if(!a) return;
+    e.preventDefault();
+    var id=a.getAttribute('href').slice(1);
+    show(id);
+    try{ if(history.replaceState){history.replaceState(null,'','#'+valid(id))} }catch(err){}
+  });
+  window.addEventListener('hashchange',function(){show((location.hash||'#home').slice(1))});
+  var start='home'; try{start=(location.hash||'#home').slice(1)}catch(err){}
+  show(start);
+  document.querySelectorAll('[data-copy]').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var el=document.getElementById(btn.getAttribute('data-copy')); if(!el) return;
+      try{navigator.clipboard.writeText(el.textContent).then(function(){btn.textContent='Copied';setTimeout(function(){btn.textContent='Copy'},1500)},function(){btn.textContent='Select to copy'})}catch(err){btn.textContent='Select to copy'}
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
